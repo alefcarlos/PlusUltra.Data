@@ -5,7 +5,7 @@ using Npgsql;
 using SqlKata.Compilers;
 using SqlKata.Execution;
 
-namespace PlusUltra.Data.SqlKata.PostgreSQL
+namespace PlusUltra.Data.SqlKata.PostgresSQL
 {
     public static class RegisterPostgressSQL
     {
