@@ -9,6 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PlusUltra.Data.SqlKata\PlusUltra.SqlKata.csproj" />
+    <ProjectReference Include="..\PlusUltra.Data.SqlKata\PlusUltra.Data.SqlKata.csproj" />
   </ItemGroup>
 </Project>
