@@ -7,9 +7,9 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL.Tests
 {
     public class Startup : TestStartup
     {
-        public override void ConfigureServices(IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
+        public override void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddPostgressSQL(configuration, loggerFactory);
+            services.AddPostgressSQL(configuration);
         }
     }
 }

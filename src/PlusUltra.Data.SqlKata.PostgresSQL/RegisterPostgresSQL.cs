@@ -11,9 +11,9 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
 {
     public static class RegisterPostgressSQL
     {
-        public static IServiceCollection AddPostgressSQL(this IServiceCollection services, IConfiguration configuration, ILoggerFactory logFactory)
+        public static IServiceCollection AddPostgressSQL(this IServiceCollection services, IConfiguration configuration)
         {
-            var logger = logFactory.CreateLogger("PostgressSQL");
+            var logger = services.BuildServiceProvider().GetRequiredService<ILogger<PostgresSettings>>();
 
             services.Configure<PostgresSettings>(configuration.GetSection(nameof(PostgresSettings)));
 
