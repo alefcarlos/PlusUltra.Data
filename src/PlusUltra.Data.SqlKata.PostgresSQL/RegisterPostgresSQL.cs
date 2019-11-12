@@ -11,7 +11,7 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
 {
     public static class RegisterPostgressSQL
     {
-        public static IServiceCollection AddPostgressSQL(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPostgressSQL(this IServiceCollection services, IConfiguration configuration, bool addHealthCheck = true)
         {
             var logger = services.BuildServiceProvider().GetRequiredService<ILogger<PostgresSettings>>();
 
@@ -22,7 +22,7 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
                 var settings = provider.GetRequiredService<IOptions<PostgresSettings>>().Value;
 
                 var connection = new NpgsqlConnection(configuration.GetConnectionString("PostgreSQL"));
-                
+
                 void ProvideClientCertificates(X509CertificateCollection clientCerts)
                 {
                     var clientCertPath = settings.ClientCertPath;
@@ -40,6 +40,13 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
                     Logger = compiled => logger.LogInformation(compiled.ToString())
                 };
             });
+
+            //Adicionando healthcheck
+            if (addHealthCheck)
+            {
+                services.AddHealthChecks()
+                    .AddNpgSql(configuration.GetConnectionString("PostgreSQL"), tags: new string[] { "db", "sql", "postgres" });
+            }
 
             return services;
         }

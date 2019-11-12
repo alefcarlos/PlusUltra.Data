@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.System" Version="3.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.Npgsql" Version="3.0.0" />
     <PackageReference Include="Npgsql" Version="4.1.1" />
     <PackageReference Include="GitVersionTask" Version="5.0.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers;</IncludeAssets>
