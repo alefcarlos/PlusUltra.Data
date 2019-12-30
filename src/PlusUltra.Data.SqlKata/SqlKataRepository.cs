@@ -1,3 +1,6 @@
+using System.Data;
+using Dapper;
+using SqlKata;
 using SqlKata.Execution;
 
 namespace PlusUltra.Data.SqlKata
@@ -9,6 +12,20 @@ namespace PlusUltra.Data.SqlKata
         public SqlKataBaseRepository(QueryFactory db)
         {
             this.db = db;
+        }
+
+        protected (IDbConnection Connection, string Sql, DynamicParameters Parameters) GetDataForMapJoins(Query query)
+        {
+            var xQuery = query as XQuery;
+            var compiler = xQuery.Compiler;
+            var connection = xQuery.Connection;
+            var compiled = compiler.Compile(query);
+            var parameters = new DynamicParameters();
+
+            foreach (var param in compiled.NamedBindings)
+                parameters.Add(param.Key, param.Value);
+
+            return (connection, compiled.Sql, parameters);
         }
 
         public void BeginTransaction()
