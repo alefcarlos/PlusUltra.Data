@@ -17,7 +17,7 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
 
             services.Configure<PostgresSettings>(configuration.GetSection(nameof(PostgresSettings)));
 
-            services.AddScoped((provider) =>
+            services.AddScoped<SqlKataPostgresConnection>((provider) =>
             {
                 var settings = provider.GetRequiredService<IOptions<PostgresSettings>>().Value;
 
@@ -35,7 +35,7 @@ namespace PlusUltra.Data.SqlKata.PostgresSQL
 
                 var compiler = new PostgresCompiler();
 
-                return new QueryFactory(connection, compiler)
+                return new SqlKataPostgresConnection(connection, compiler)
                 {
                     Logger = compiled => logger.LogInformation(compiled.ToString())
                 };
